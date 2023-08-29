@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
       prompts: DataTypes.TEXT,
       is_public: DataTypes.BOOLEAN,
       max_pax: DataTypes.INTEGER,
-      current_pax: DataTypes.INTEGER,
       gender_preference: DataTypes.STRING,
     },
     {

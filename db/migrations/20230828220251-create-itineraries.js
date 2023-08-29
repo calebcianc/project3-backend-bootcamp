@@ -21,9 +21,6 @@ module.exports = {
       max_pax: {
         type: Sequelize.INTEGER,
       },
-      current_pax: {
-        type: Sequelize.INTEGER,
-      },
       gender_preference: {
         type: Sequelize.STRING,
       },

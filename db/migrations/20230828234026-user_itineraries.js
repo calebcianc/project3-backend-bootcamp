@@ -10,24 +10,20 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      owner_id: {
+      user_id: {
         type: Sequelize.INTEGER,
         references: {
           model: "users",
           key: "id",
         },
       },
-      guest_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: "users",
-          key: "id",
-        },
+      is_creator: {
+        type: Sequelize.BOOLEAN,
       },
       itinerary_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: "users",
+          model: "itineraries",
           key: "id",
         },
       },

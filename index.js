@@ -1,11 +1,3 @@
-// import express from "express";
-// import cors from "cors";
-// import dotenv from "dotenv";
-// import ItineraryRouter from "./routers/itineraryRouter";
-// import ItineraryController from "./controllers/itineraryController";
-// import db from "./db/models/index";
-// const { users, itineraries, activities } = db;
-
 const cors = require("cors");
 const express = require("express");
 require("dotenv").config();
@@ -15,7 +7,7 @@ const db = require("./db/models/index");
 const { users, itineraries, activities } = db;
 
 // initializing Controllers -> note the lowercase for the first word
-const itineraryController = new ItineraryController(itineraries);
+const itineraryController = new ItineraryController(itineraries, activities);
 // initializing Routers
 const itineraryRouter = new ItineraryRouter(itineraryController).routes();
 
@@ -25,14 +17,9 @@ const app = express();
 app.use(cors());
 app.use(express.json()); // to parse incoming JSON data in the request body.
 
-// app.get("/", (req, res) => {
-//   res.send("Hello, World!");
-// });
-
 // using the routers
-app.use("/", itineraryRouter);
+app.use("/itinerary", itineraryRouter);
 
 app.listen(PORT, () => {
   console.log(`Express app listening on port ${PORT}!`);
-  console.log("testing");
 });

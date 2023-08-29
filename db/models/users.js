@@ -3,16 +3,10 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Users extends Model {
     static associate(models) {
-      // belongsToMany is for the M-M association to query related itnerary instances
       this.belongsToMany(models.itineraries, {
         through: "user_itineraries",
-        as: "owner",
-        foreignKey: "ownerId",
-      });
-      this.belongsToMany(models.itineraries, {
-        through: "user_itineraries",
-        as: "guest",
-        foreignKey: "guestId",
+        as: "user",
+        foreignKey: "user_id",
       });
     }
   }
