@@ -1,4 +1,4 @@
-import BaseController from "./baseController.js";
+const BaseController = require("./baseController");
 
 class ItineraryController extends BaseController {
   constructor(model) {
@@ -27,4 +27,4 @@ class ItineraryController extends BaseController {
   }
 }
 
-export default ItineraryController;
+module.exports = ItineraryController;
