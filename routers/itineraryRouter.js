@@ -7,6 +7,7 @@ class ItineraryRouter {
   }
   routes() {
     router.get("/", this.controller.getAll.bind(this.controller));
+
     router.get(
       "/:itineraryId",
       this.controller.getItineraryWithActivities.bind(this.controller)
