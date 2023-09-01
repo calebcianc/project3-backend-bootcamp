@@ -109,11 +109,31 @@ class ItineraryController extends BaseController {
   // edit itinerary
   async editItinerary(req, res) {
     try {
-      let itineraryToAdd = req.body;
+      let { name, prompts, isPublic, maxPax, genderPreference } = req.body;
       const { userId, itineraryId } = req.params;
+      console.log(userId);
+      console.log(itineraryId);
+
+      // Find the existing itinerary
       let itineraryToEdit = await this.model.findByPk(itineraryId);
-      await itineraryToEdit.update(itineraryToAdd);
-      //show remaining itineraries after deletion
+
+      if (!itineraryToEdit) {
+        return res
+          .status(404)
+          .json({ error: true, msg: "Itinerary not found" });
+      }
+
+      // Update the itinerary
+      await itineraryToEdit.update({
+        name: name,
+        prompts: prompts,
+        is_public: isPublic,
+        max_pax: maxPax,
+        gender_preference: genderPreference,
+        // user_id: userId,
+      });
+
+      // Fetch and show all itineraries after the update
       let allItinerary = await this.model.findAll({
         include: [
           {

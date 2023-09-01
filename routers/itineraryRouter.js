@@ -15,10 +15,10 @@ class ItineraryRouter {
       this.controller.getOneItineraryActivityByUser.bind(this.controller)
     );
     router.post("/new", this.controller.createItinerary.bind(this.controller));
-    // router.put(
-    //   "/:userId/itineraryId",
-    //   this.controller.editItinerary.bind(this.controller)
-    // );
+    router.put(
+      "/:userId/itineraryId",
+      this.controller.editItinerary.bind(this.controller)
+    );
     router.delete(
       "/:userId/:itineraryId",
       this.controller.deleteItinerary.bind(this.controller)
