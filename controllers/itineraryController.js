@@ -8,6 +8,35 @@ class ItineraryController extends BaseController {
     this.user_itinerariesModel = user_itinerariesModel;
   }
 
+  // get all itineraries with activities that are public (for explore page)
+  async getAllItineraryActivitiesPublic(req, res) {
+    try {
+      const itinerary = await this.model.findAll({
+        where: { isPublic: true },
+        include: [
+          {
+            model: this.activitiesModel,
+          },
+          {
+            model: this.usersModel,
+            attributes: ["id", "firstName", "lastName"],
+          },
+        ],
+      });
+      if (!itinerary) {
+        return res
+          .status(404)
+          .json({ error: true, msg: "Itinerary not found" });
+      }
+      return res.json(itinerary);
+    } catch (error) {
+      console.error("Error fetching itineraries with activities:", error);
+      return res
+        .status(500)
+        .json({ error: true, msg: "Internal Server Error" });
+    }
+  }
+
   // get all itineraries with activities by users
   async getAllItinerary(req, res) {
     const { userId } = req.params;
@@ -72,7 +101,7 @@ class ItineraryController extends BaseController {
     const {
       name,
       // either put startdate, enddate and country in req or place whole prompt in request.country, date etc to fit into prompt from front end
-      // prompts,
+      prompts,
       isPublic,
       maxPax,
       genderPreference,
@@ -84,12 +113,12 @@ class ItineraryController extends BaseController {
       const itinerary = await this.model.create(
         {
           name: name,
-          // prompts: prompts,
-          is_public: isPublic,
-          max_pax: maxPax,
-          gender_preference: genderPreference,
-          user_id: userId,
-          is_creator: true, //default for creation
+          prompts: prompts,
+          isPublic: isPublic,
+          maxPax: maxPax,
+          genderPreference: genderPreference,
+          userId: userId,
+          isCreator: true, //default for creation
           activities: activities,
         },
         { include: [this.activitiesModel] } //this tells Sequelize to also create Activity entries
@@ -204,12 +233,6 @@ class ItineraryController extends BaseController {
       return res.status(400).json({ error: true, msg: err.message });
     }
   }
-
-  // create activity for specific itinerary by user
-
-  // edit actitvity
-
-  // delete activity
 }
 
 module.exports = ItineraryController;

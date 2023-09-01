@@ -6,8 +6,12 @@ class ItineraryRouter {
     this.controller = controller;
   }
   routes() {
-
     router.get("/", this.controller.getAll.bind(this.controller));
+
+    router.get(
+      "/explore",
+      this.controller.getAllItineraryActivitiesPublic.bind(this.controller)
+    );
 
     router.get(
       "/:userId",
