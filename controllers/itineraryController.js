@@ -20,7 +20,6 @@ class ItineraryController extends BaseController {
           {
             model: this.usersModel,
             where: { id: userId }, // Filter by userId
-            attributes: ["id", "first_name", "last_name"],
           },
         ],
       });
@@ -50,7 +49,6 @@ class ItineraryController extends BaseController {
           {
             model: this.usersModel,
             where: { id: userId }, // Filter by userId
-            attributes: ["id", "first_name", "last_name"],
           },
         ],
       });
@@ -127,9 +125,9 @@ class ItineraryController extends BaseController {
       await itineraryToEdit.update({
         name: name,
         prompts: prompts,
-        is_public: isPublic,
-        max_pax: maxPax,
-        gender_preference: genderPreference,
+        isPublic: isPublic,
+        maxPax: maxPax,
+        genderPreference: genderPreference,
         // user_id: userId,
       });
 
@@ -159,8 +157,8 @@ class ItineraryController extends BaseController {
       // First, find the relevant record in the users_itineraries junction table
       const userItineraryRecord = await this.user_itinerariesModel.findOne({
         where: {
-          user_id: userId,
-          itinerary_id: itineraryId,
+          userId: userId,
+          itineraryId: itineraryId,
         },
         include: [
           {
@@ -178,7 +176,7 @@ class ItineraryController extends BaseController {
       }
 
       // Check if the user is the creator
-      if (!userItineraryRecord.is_creator) {
+      if (!userItineraryRecord.isCreator) {
         throw new Error("Only the creator can delete this itinerary");
       }
 
