@@ -50,7 +50,7 @@ module.exports = {
       {
         name: "Better China tour",
         prompts: "Prompt test 2",
-        is_public: true,
+        is_public: false,
         max_pax: 3,
         gender_preference: "Female",
         created_at: new Date(),
@@ -222,6 +222,13 @@ module.exports = {
       {
         user_id: 2,
         is_creator: true,
+        itinerary_id: 2,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        user_id: 1,
+        is_creator: false,
         itinerary_id: 2,
         created_at: new Date(),
         updated_at: new Date(),

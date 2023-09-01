@@ -7,6 +7,8 @@ module.exports = (sequelize, DataTypes) => {
         through: "user_itineraries",
         as: "user",
         foreignKey: "user_id",
+        onDelete: "CASCADE", // Cascade delete for the many-to-many relationship
+        onUpdate: "CASCADE",
       });
     }
   }
