@@ -3,7 +3,10 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Activities extends Model {
     static associate(models) {
-      this.belongsTo(models.itineraries);
+      this.belongsTo(models.itineraries, {
+        onDelete: "CASCADE", // Cascade delete for the many-to-many relationship
+        onUpdate: "CASCADE",
+      });
     }
   }
   Activities.init(
