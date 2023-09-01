@@ -18,9 +18,9 @@ module.exports = (sequelize, DataTypes) => {
     {
       name: DataTypes.STRING,
       prompts: DataTypes.TEXT,
-      is_public: DataTypes.BOOLEAN,
-      max_pax: DataTypes.INTEGER,
-      gender_preference: DataTypes.STRING,
+      isPublic: DataTypes.BOOLEAN,
+      maxPax: DataTypes.INTEGER,
+      genderPreference: DataTypes.STRING,
     },
     {
       sequelize,
