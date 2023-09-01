@@ -74,33 +74,35 @@ class ItineraryController extends BaseController {
     const {
       name,
       // either put startdate, enddate and country in req or place whole prompt in request.country, date etc to fit into prompt from front end
-      // startDate,
-      // endDate,
-      // country,
-      prompts,
+      // prompts,
       isPublic,
       maxPax,
       genderPreference,
-      userId, // to extract from front end body
+      userId,
+      activities,
     } = req.body;
-    // call chatgpt api
+    // call chatgpt api with the above prompt. output to include activites.
     try {
-      const itinerary = await this.model.create({
-        name: name,
-        prompts: prompts,
-        is_public: isPublic,
-        max_pax: maxPax,
-        gender_preference: genderPreference,
-        user_id: userId,
-        is_creator: true, //default for creation
-      });
-      // Associate the itinerary with the provided
-      if (userId && userId.length) {
-        await itinerary.setUsers(userId);
-      }
+      const itinerary = await this.model.create(
+        {
+          name: name,
+          // prompts: prompts,
+          is_public: isPublic,
+          max_pax: maxPax,
+          gender_preference: genderPreference,
+          user_id: userId,
+          is_creator: true, //default for creation
+          activities: activities,
+        },
+        { include: [this.activitiesModel] } //this tells Sequelize to also create Activity entries
+      );
+
+      // Associate the user with the itinerary and set is_creator to true
+      await itinerary.addUser(userId, { through: { is_creator: true } });
+
       return res.json(itinerary);
     } catch (err) {
-      return res.status(400).json({ error: true, msg: err });
+      return res.status(400).json({ error: true, msg: err.message });
     }
   }
 
