@@ -14,9 +14,9 @@ const userInterests = ["sightseeing", "cultural", "adventure", "nature"]; // to 
 
 const itineraryInputs = {
   startDate: "1 November 2023",
-  endDate: "14 November 2023",
+  endDate: "5 November 2023",
   country: "China",
-  focus: "",
+  category: "",
 }; // to get from FE & store in BE
 
 const systemPrompt = `You are a world class travel assistant to a user with the following interests: ${userInterests.join(
@@ -54,7 +54,7 @@ In generating the list of activities, note and ensure the following:
 Thereafter, the user may send in one or more of the following: i) Add in a new activity, ii) Amend something about an existing activity. \n
 In responding to these requests, be sure to note the information of the activities before and after, and recommend an activity appropriate for the user.`;
 
-const generateItineraryPrompt = `Generate a travel itinerary based on the following: Start date ${itineraryInputs.startDate}, End date ${itineraryInputs.endDate}, Country: ${itineraryInputs.country}. `;
+const generateItineraryPrompt = `Generate a travel itinerary based on the following: Start date ${itineraryInputs.startDate}, End date ${itineraryInputs.endDate}, Country: ${itineraryInputs.country}, Category: ${itineraryInputs.category}. `;
 
 const messages = [
   {

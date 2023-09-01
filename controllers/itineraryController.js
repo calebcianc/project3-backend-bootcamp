@@ -73,6 +73,9 @@ class ItineraryController extends BaseController {
   async createItinerary(req, res) {
     const {
       name,
+      startDate,
+      endDate,
+      country,
       // either put startdate, enddate and country in req or place whole prompt in request.country, date etc to fit into prompt from front end
       // prompts,
       isPublic,
@@ -82,10 +85,14 @@ class ItineraryController extends BaseController {
       activities,
     } = req.body;
     // call chatgpt api with the above prompt. output to include activites.
+
     try {
       const itinerary = await this.model.create(
         {
           name: name,
+          start_date: startDate,
+          end_date: endDate,
+          country: country,
           // prompts: prompts,
           is_public: isPublic,
           max_pax: maxPax,
