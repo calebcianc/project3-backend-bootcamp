@@ -77,10 +77,9 @@ async function fetchChatCompletion() {
     console.log("chatCompletion.data: ", chatCompletion?.data);
     console.log("chatCompletion.data.choices: ", chatCompletion?.data?.choices);
 
-    const newMessage = JSON.stringify(chatCompletion.data.choices[0].message);
-    const parsedMessage = JSON.parse(newMessage);
+    const newMessage = chatCompletion?.data?.choices[0].message;
 
-    messages.push(parsedMessage);
+    messages.push(newMessage);
     console.log;
     console.log(messages);
   } catch (error) {
