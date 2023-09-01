@@ -42,6 +42,7 @@ Each activity-object will be presented in the following object format and keys e
 }
 
 In generating the list of activities, note and ensure the following:
+- make sure your itinerary covers EVERY date from the start date to the end date inclusive.
 - there will be at least 3 activities for every day of the itinerary (one for morning, one for afternoon, one for evening)
 - breakfast will be at 8am
 - lunch will be at 12pm
