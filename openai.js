@@ -34,6 +34,7 @@ Each activity-object will be presented in the following object format and keys e
   "name": "Visit Forbidden City",
   "description": "The Forbidden City in Beijing, China, is a historic palace complex that served as the imperial residence for 24 emperors during the Ming and Qing Dynasties. Spanning over 180 acres, it is a masterpiece of Chinese architecture and is now a UNESCO World Heritage Site, attracting millions of visitors annually.",
   "type": "cultural",
+  "activity_order": "1"
   "time_of_day": "afternoon",
   "suggested_duration": "2 to 3 hours",
   "location": "Forbidden City, Beijing",

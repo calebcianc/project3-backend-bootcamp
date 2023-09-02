@@ -100,11 +100,6 @@ class ItineraryController extends BaseController {
   async createItinerary(req, res) {
     const {
       name,
-      startDate,
-      endDate,
-      country,
-      category,
-      // either put startdate, enddate and country in req or place whole prompt in request.country, date etc to fit into prompt from front end
       prompts,
       isPublic,
       maxPax,
