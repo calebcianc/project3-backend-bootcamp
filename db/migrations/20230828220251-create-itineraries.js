@@ -14,6 +14,7 @@ module.exports = {
       },
       prompts: {
         type: Sequelize.JSON,
+        allowNull: true,
       },
       is_public: {
         type: Sequelize.BOOLEAN,

@@ -62,12 +62,12 @@ In responding to these requests, be sure to note the information of the activiti
 
 let storeGPTResponse = [];
 
-const prompts = {
-  startDate: "1 November 2023",
-  endDate: "2 November 2023",
-  country: "China",
-  category: "",
-};
+// const prompts = {
+//   startDate: "1 November 2023",
+//   endDate: "2 November 2023",
+//   country: "China",
+//   category: "",
+// };
 
 async function fetchChatCompletion({ prompts }) {
   console.log("fetchChatCompletion function is running");
@@ -89,6 +89,6 @@ async function fetchChatCompletion({ prompts }) {
   }
 }
 
-fetchChatCompletion({ prompts });
+// fetchChatCompletion({ prompts });
 
 module.exports = fetchChatCompletion;
