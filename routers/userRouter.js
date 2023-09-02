@@ -7,11 +7,8 @@ class UserRouter {
   }
   routes() {
     router.get("/", this.controller.getAllUser.bind(this.controller));
-    router.post("/home", this.controller.checkUser.bind(this.controller));
-    router.put(
-      "/:userId/edit",
-      this.controller.updateUser.bind(this.controller)
-    );
+    router.post("/", this.controller.checkUser.bind(this.controller));
+    router.put("/:userId/edit", this.controller.editUser.bind(this.controller));
     return router;
   }
 }
