@@ -61,8 +61,6 @@ In responding to these requests, be sure to note the information of the activiti
   ];
 };
 
-let storeGPTResponse = [];
-
 // const prompts = {
 //   startDate: "1 November 2023",
 //   endDate: "2 November 2023",
@@ -74,22 +72,30 @@ async function fetchChatCompletion({ prompts }) {
   console.log("fetchChatCompletion function is running");
   console.log("Prompts: ", JSON.stringify(prompts));
 
+  let counter = 0; // Initialize counter
+  // Start the count-up timer
+  timerId = setInterval(() => {
+    counter++;
+    console.log(`Time elapsed: ${counter} seconds`);
+  }, 1000);
+
   try {
     const chatCompletion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: messages(prompts),
     });
 
-    console.log("role: ", chatCompletion.choices[0].message.role);
-    console.log("content: ", chatCompletion.choices[0].message.content);
+    clearInterval(timerId); // Stop the timer
+
+    // console.log("role: ", chatCompletion.choices[0].message.role);
+    // console.log("content: ", chatCompletion.choices[0].message.content);
     const storeGPTResponse = chatCompletion.choices[0].message.content;
     console.log("storeGPTResponse: ", storeGPTResponse);
     return storeGPTResponse;
   } catch (error) {
+    clearInterval(timerId); // Stop the timer
     console.error("Error", error);
   }
 }
-
-// fetchChatCompletion({ prompts });
 
 module.exports = fetchChatCompletion;
