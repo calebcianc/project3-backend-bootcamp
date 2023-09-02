@@ -35,9 +35,7 @@ class ActivityController extends BaseController {
     try {
       let activitiesToAdd = req.body;
       const { activityId, userId } = req.params;
-      const activityToEdit = await this.activitiesModel.findByPk(activityId, {
-        where: { id: activityId },
-      });
+      const activityToEdit = await this.activitiesModel.findByPk(activityId);
       const userItineraryRecord = await this.user_itinerariesModel.findOne({
         where: {
           userId: userId,

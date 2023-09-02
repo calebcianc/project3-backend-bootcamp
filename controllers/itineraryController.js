@@ -145,43 +145,35 @@ class ItineraryController extends BaseController {
   // edit itinerary
   async editItinerary(req, res) {
     try {
-      let { name, prompts, isPublic, maxPax, genderPreference } = req.body;
+      let itineraryToAdd = req.body;
       const { userId, itineraryId } = req.params;
       // Find the existing itinerary
       let itineraryToEdit = await this.model.findByPk(itineraryId);
-
       if (!itineraryToEdit) {
         return res
           .status(404)
           .json({ error: true, msg: "Itinerary not found" });
       }
-
-      // Update the itinerary
-      await itineraryToEdit.update({
-        name: name,
-        prompts: prompts,
-        isPublic: isPublic,
-        maxPax: maxPax,
-        genderPreference: genderPreference,
-        // user_id: userId,
+      console.log("itineraryToEdit", itineraryToEdit);
+      const userItineraryRecord = await this.user_itinerariesModel.findOne({
+        where: {
+          userId: userId,
+          itineraryId: itineraryId,
+        },
       });
+      console.log("userItineraryRecord", userItineraryRecord);
 
-      // Fetch and show all itineraries after the update
-      let allItinerary = await this.model.findAll({
-        include: [
-          {
-            model: this.activitiesModel,
-          },
-          {
-            model: this.usersModel,
-            where: { id: userId },
-          },
-        ],
-      });
+      // Check if the user is the creator
+      if (!userItineraryRecord.isCreator) {
+        throw new Error(
+          "Only the creator can edit new activity in this itinerary"
+        );
+      }
+      await itineraryToEdit.update(itineraryToAdd);
 
-      return res.json(allItinerary);
+      return res.json(itineraryToEdit);
     } catch (err) {
-      return res.status(400).json({ error: true, msg: err });
+      return res.status(400).json({ error: true, msg: err.message });
     }
   }
 
