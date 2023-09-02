@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   Itineraries.init(
     {
       name: DataTypes.STRING,
-      prompts: DataTypes.TEXT,
+      prompts: DataTypes.JSON, // Caleb: changed this from TEXT to JSON
       isPublic: DataTypes.BOOLEAN,
       maxPax: DataTypes.INTEGER,
       genderPreference: DataTypes.STRING,
