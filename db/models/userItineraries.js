@@ -21,21 +21,21 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         allowNull: false,
       },
-      user_id: {
+      userId: {
         type: DataTypes.INTEGER,
         references: {
           model: "users",
           key: "id",
         },
       },
-      itinerary_id: {
+      itineraryId: {
         type: DataTypes.INTEGER,
         references: {
-          model: "personalities",
+          model: "itineraries",
           key: "id",
         },
       },
-      is_creator: DataTypes.BOOLEAN,
+      isCreator: DataTypes.BOOLEAN,
     },
     {
       sequelize,

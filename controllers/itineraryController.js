@@ -8,6 +8,35 @@ class ItineraryController extends BaseController {
     this.user_itinerariesModel = user_itinerariesModel;
   }
 
+  // get all itineraries with activities that are public (for explore page)
+  async getAllItineraryActivitiesPublic(req, res) {
+    try {
+      const itinerary = await this.model.findAll({
+        where: { isPublic: true },
+        include: [
+          {
+            model: this.activitiesModel,
+          },
+          {
+            model: this.usersModel,
+            attributes: ["id", "firstName", "lastName"],
+          },
+        ],
+      });
+      if (!itinerary) {
+        return res
+          .status(404)
+          .json({ error: true, msg: "Itinerary not found" });
+      }
+      return res.json(itinerary);
+    } catch (error) {
+      console.error("Error fetching itineraries with activities:", error);
+      return res
+        .status(500)
+        .json({ error: true, msg: "Internal Server Error" });
+    }
+  }
+
   // get all itineraries with activities by users
   async getAllItinerary(req, res) {
     const { userId } = req.params;
@@ -20,7 +49,6 @@ class ItineraryController extends BaseController {
           {
             model: this.usersModel,
             where: { id: userId }, // Filter by userId
-            attributes: ["id", "first_name", "last_name"],
           },
         ],
       });
@@ -50,7 +78,6 @@ class ItineraryController extends BaseController {
           {
             model: this.usersModel,
             where: { id: userId }, // Filter by userId
-            attributes: ["id", "first_name", "last_name"],
           },
         ],
       });
@@ -78,7 +105,7 @@ class ItineraryController extends BaseController {
       country,
       category,
       // either put startdate, enddate and country in req or place whole prompt in request.country, date etc to fit into prompt from front end
-      // prompts,
+      prompts,
       isPublic,
       maxPax,
       genderPreference,
@@ -88,27 +115,28 @@ class ItineraryController extends BaseController {
     // call chatgpt api with the above prompt. output to include activites.
 
     try {
-      const itinerary = await this.model.create(
+      const newItinerary = await this.model.create(
         {
           name: name,
-          start_date: startDate,
-          end_date: endDate,
+          startDate: startDate,
+          endDate: endDate,
           country: country,
-          // prompts: prompts,
-          is_public: isPublic,
-          max_pax: maxPax,
-          gender_preference: genderPreference,
-          user_id: userId,
-          is_creator: true, //default for creation
+          category: category,
+          prompts: prompts,
+          isPublic: isPublic,
+          maxPax: maxPax,
+          genderPreference: genderPreference,
+          userId: userId,
+          isCreator: true, //default for creation
           activities: activities,
         },
         { include: [this.activitiesModel] } //this tells Sequelize to also create Activity entries
       );
 
       // Associate the user with the itinerary and set is_creator to true
-      await itinerary.addUser(userId, { through: { is_creator: true } });
+      await newItinerary.addUser(userId, { through: { is_creator: true } });
 
-      return res.json(itinerary);
+      return res.json(newItinerary);
     } catch (err) {
       return res.status(400).json({ error: true, msg: err.message });
     }
@@ -117,11 +145,28 @@ class ItineraryController extends BaseController {
   // edit itinerary
   async editItinerary(req, res) {
     try {
-      let itineraryToAdd = req.body;
+      let { name, prompts, isPublic, maxPax, genderPreference } = req.body;
       const { userId, itineraryId } = req.params;
+      // Find the existing itinerary
       let itineraryToEdit = await this.model.findByPk(itineraryId);
-      await itineraryToEdit.update(itineraryToAdd);
-      //show remaining itineraries after deletion
+
+      if (!itineraryToEdit) {
+        return res
+          .status(404)
+          .json({ error: true, msg: "Itinerary not found" });
+      }
+
+      // Update the itinerary
+      await itineraryToEdit.update({
+        name: name,
+        prompts: prompts,
+        isPublic: isPublic,
+        maxPax: maxPax,
+        genderPreference: genderPreference,
+        // user_id: userId,
+      });
+
+      // Fetch and show all itineraries after the update
       let allItinerary = await this.model.findAll({
         include: [
           {
@@ -147,8 +192,8 @@ class ItineraryController extends BaseController {
       // First, find the relevant record in the users_itineraries junction table
       const userItineraryRecord = await this.user_itinerariesModel.findOne({
         where: {
-          user_id: userId,
-          itinerary_id: itineraryId,
+          userId: userId,
+          itineraryId: itineraryId,
         },
         include: [
           {
@@ -166,7 +211,7 @@ class ItineraryController extends BaseController {
       }
 
       // Check if the user is the creator
-      if (!userItineraryRecord.is_creator) {
+      if (!userItineraryRecord.isCreator) {
         throw new Error("Only the creator can delete this itinerary");
       }
 
@@ -194,12 +239,6 @@ class ItineraryController extends BaseController {
       return res.status(400).json({ error: true, msg: err.message });
     }
   }
-
-  // create activity for specific itinerary by user
-
-  // edit actitvity
-
-  // delete activity
 }
 
 module.exports = ItineraryController;

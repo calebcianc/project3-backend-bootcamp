@@ -13,16 +13,16 @@ module.exports = (sequelize, DataTypes) => {
     {
       name: DataTypes.STRING,
       date: DataTypes.DATE,
-      time_of_day: DataTypes.STRING,
+      timeOfDay: DataTypes.STRING,
       location: DataTypes.STRING,
-      suggested_duration: DataTypes.STRING,
+      suggestedDuration: DataTypes.STRING,
       latitude: DataTypes.FLOAT,
       longitude: DataTypes.FLOAT,
       description: DataTypes.TEXT,
-      activity_order: DataTypes.INTEGER,
-      photo_url: DataTypes.TEXT,
+      activityOrder: DataTypes.INTEGER,
+      photoUrl: DataTypes.TEXT,
       type: DataTypes.STRING,
-      itinerary_id: {
+      itineraryId: {
         type: DataTypes.INTEGER,
         references: {
           model: "itineraries",

@@ -5,8 +5,6 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsToMany(models.itineraries, {
         through: "user_itineraries",
-        as: "user",
-        foreignKey: "user_id",
         onDelete: "CASCADE", // Cascade delete for the many-to-many relationship
         onUpdate: "CASCADE",
       });
@@ -14,9 +12,9 @@ module.exports = (sequelize, DataTypes) => {
   }
   Users.init(
     {
-      first_name: DataTypes.STRING,
-      last_name: DataTypes.STRING,
-      email_address: DataTypes.STRING,
+      firstName: DataTypes.STRING,
+      lastName: DataTypes.STRING,
+      email: DataTypes.STRING,
       gender: DataTypes.STRING,
     },
     {

@@ -28,7 +28,7 @@ Each conversation that you will be having will be for one itinerary and one itin
 
 The first prompt you receive will provide information such as the start and end dates, as well as the country that the user wants to visit. \n
 You will respond strictly with a JSON array of objects, representing a list of activities based on the i) time of year inferred from the start and end dates, ii) the country, and iii) the user's interests as indicated above. \n
-Each activity-object will be presented in the following object format and keys e.g., 
+Each activity-object will be presented in the following object format and keys e.g.,
 {
   "date": "1 November 2023",
   "name": "Visit Forbidden City",
