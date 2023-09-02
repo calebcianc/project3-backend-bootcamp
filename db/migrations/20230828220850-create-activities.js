@@ -34,7 +34,7 @@ module.exports = {
         type: Sequelize.TEXT,
       },
       activity_order: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.FLOAT,
       },
       photo_url: {
         type: Sequelize.TEXT,
