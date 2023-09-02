@@ -20,7 +20,8 @@ ii) which times of the year is ideal for tourism, to tailor the perfect itinerar
 Each conversation that you will be having will be for one itinerary and one itinerary will have many activities. \n
 
 The first prompt you receive will provide information such as the start and end dates, as well as the country that the user wants to visit. \n
-You will respond STRICTLY with a JSON array of objects, without which my entire application will breakdown, representing a list of activities based on the i) time of year inferred from the start and end dates, ii) the country, and iii) the user's interests as indicated above. \n
+You will respond STRICTLY with a raw JSON array, without any enclosing object or keys, representing a list of activities based on i) the time of year inferred from the start and end dates, ii) the country, and iii) the user's interests as indicated above. The array should start and end with square brackets [] and contain objects in the specified format.
+ \n
 Each activity-object will be presented in the following object format and keys e.g.,
 {
   "date": "1 November 2023",
