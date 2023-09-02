@@ -13,7 +13,6 @@ const ActivityRouter = require("./routers/activityRouter");
 
 const db = require("./db/models/index");
 const { users, itineraries, activities, user_itineraries } = db;
-const fetchChatCompletion = require("./openai.js");
 
 const itineraryController = new ItineraryController(
   itineraries,
@@ -53,5 +52,3 @@ app.use("/activity", activityRouter);
 app.listen(PORT, () => {
   console.log(`Express app listening on port ${PORT}!`);
 });
-
-fetchChatCompletion();

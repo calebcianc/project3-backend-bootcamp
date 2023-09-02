@@ -13,7 +13,8 @@ module.exports = {
         type: Sequelize.STRING,
       },
       prompts: {
-        type: Sequelize.TEXT,
+        type: Sequelize.JSON,
+        allowNull: true,
       },
       is_public: {
         type: Sequelize.BOOLEAN,

@@ -1,3 +1,4 @@
+const fetchChatCompletion = require("../openai.js");
 const BaseController = require("./baseController");
 
 class ItineraryController extends BaseController {
@@ -100,43 +101,75 @@ class ItineraryController extends BaseController {
   async createItinerary(req, res) {
     const {
       name,
-      startDate,
-      endDate,
-      country,
-      category,
-      // either put startdate, enddate and country in req or place whole prompt in request.country, date etc to fit into prompt from front end
-      prompts,
+      prompts, // stores start date, end date, country, category
       isPublic,
       maxPax,
       genderPreference,
       userId,
-      activities,
     } = req.body;
-    // call chatgpt api with the above prompt. output to include activites.
 
     try {
-      const newItinerary = await this.model.create(
-        {
-          name: name,
-          startDate: startDate,
-          endDate: endDate,
-          country: country,
-          category: category,
-          prompts: prompts,
-          isPublic: isPublic,
-          maxPax: maxPax,
-          genderPreference: genderPreference,
-          userId: userId,
-          isCreator: true, //default for creation
-          activities: activities,
-        },
-        { include: [this.activitiesModel] } //this tells Sequelize to also create Activity entries
-      );
+      // call chatgpt api and assign the array of activities to the activities variable
+      const activities = await fetchChatCompletion({ prompts });
+      if (!activities) {
+        return res
+          .status(400)
+          .json({ error: true, msg: "Could not fetch activities" });
+      }
 
-      // Associate the user with the itinerary and set is_creator to true
-      await newItinerary.addUser(userId, { through: { is_creator: true } });
+      const transaction = await this.model.sequelize.transaction();
 
-      return res.json(newItinerary);
+      try {
+        // having the array of activities from chatGPT, we can create a new itinerary in the itineraries model in our db
+        const newItinerary = await this.model.create(
+          {
+            name: name,
+            prompts: prompts,
+            isPublic: isPublic,
+            maxPax: maxPax,
+            genderPreference: genderPreference,
+            userId: userId,
+            isCreator: true, //default for creation
+            activities: activities, // array of objects from ChatGPT
+          },
+          { include: [this.activitiesModel], transaction } //this tells Sequelize to also create Activity entries
+        );
+
+        // Associate the user with the itinerary and set is_creator to true
+        await newItinerary.addUser(userId, {
+          through: { is_creator: true },
+          transaction,
+        });
+
+        if (!Array.isArray(activities)) {
+          console.error("Activities is not an array", activities);
+        }
+
+        const jsArrayActivities = JSON.parse(activities);
+        const bulkActivities = jsArrayActivities.map((activity) => ({
+          date: activity.date.split("T")[0],
+          name: activity.name,
+          description: activity.description,
+          type: activity.type,
+          activityOrder: parseInt(activity.activity_order),
+          timeOfDay: activity.time_of_day,
+          suggestedDuration: activity.suggested_duration,
+          location: activity.location,
+          latitude: activity.latitude,
+          longitude: activity.longitude,
+          itineraryId: newItinerary.id,
+        }));
+
+        await this.activitiesModel.bulkCreate(bulkActivities, {
+          transaction,
+        });
+
+        await transaction.commit();
+        return res.json(newItinerary);
+      } catch (dbErr) {
+        await transaction.rollback();
+        return res.status(400).json({ error: true, msg: dbErr.message });
+      }
     } catch (err) {
       return res.status(400).json({ error: true, msg: err.message });
     }

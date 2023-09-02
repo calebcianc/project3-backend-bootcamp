@@ -38,6 +38,7 @@ module.exports = {
       },
       photo_url: {
         type: Sequelize.TEXT,
+        allowNull: true,
       },
       type: {
         type: Sequelize.STRING,

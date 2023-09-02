@@ -40,7 +40,6 @@ module.exports = {
     await queryInterface.bulkInsert("itineraries", [
       {
         name: "China tour",
-        prompts: "Prompt test",
         is_public: true,
         max_pax: 4,
         gender_preference: "Any",
@@ -49,7 +48,7 @@ module.exports = {
       },
       {
         name: "Better China tour",
-        prompts: "Prompt test 2",
+
         is_public: false,
         max_pax: 3,
         gender_preference: "Female",

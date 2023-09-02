@@ -11,17 +11,17 @@ module.exports = (sequelize, DataTypes) => {
   }
   Activities.init(
     {
-      name: DataTypes.STRING,
       date: DataTypes.DATE,
+      name: DataTypes.STRING,
+      description: DataTypes.TEXT,
+      type: DataTypes.STRING,
+      activityOrder: DataTypes.FLOAT,
       timeOfDay: DataTypes.STRING,
-      location: DataTypes.STRING,
       suggestedDuration: DataTypes.STRING,
+      location: DataTypes.STRING,
       latitude: DataTypes.FLOAT,
       longitude: DataTypes.FLOAT,
-      description: DataTypes.TEXT,
-      activityOrder: DataTypes.FLOAT,
       photoUrl: DataTypes.TEXT,
-      type: DataTypes.STRING,
       itineraryId: {
         type: DataTypes.INTEGER,
         references: {
