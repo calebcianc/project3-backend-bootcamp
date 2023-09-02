@@ -7,7 +7,7 @@ module.exports = {
       {
         first_name: "Jane",
         last_name: "Doe",
-        email_address: "jane.doe@gmail.com",
+        email: "jane.doe@gmail.com",
         gender: "Female",
         created_at: new Date(),
         updated_at: new Date(),
@@ -15,7 +15,7 @@ module.exports = {
       {
         first_name: "John",
         last_name: "Doe",
-        email_address: "john.doe@gmail.com",
+        email: "john.doe@gmail.com",
         gender: "Male",
         created_at: new Date(),
         updated_at: new Date(),
@@ -23,7 +23,7 @@ module.exports = {
       {
         first_name: "Jason",
         last_name: "Tan",
-        email_address: "jason.tan@gmail.com",
+        email: "jason.tan@gmail.com",
         gender: "Male",
         created_at: new Date(),
         updated_at: new Date(),
@@ -31,7 +31,7 @@ module.exports = {
       {
         first_name: "Barbie",
         last_name: "Pink",
-        email_address: "barbie.pink@gmail.com",
+        email: "barbie.pink@gmail.com",
         gender: "Female",
         created_at: new Date(),
         updated_at: new Date(),
