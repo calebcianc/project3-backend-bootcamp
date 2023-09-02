@@ -24,15 +24,13 @@ class UserController extends BaseController {
         where: { email: email },
       });
 
-      console.log(`Current user id: ${currUser} `);
-
       return res.json(currUser);
     } catch (err) {
       return res.status(400).json({ error: true, msg: err.messages });
     }
   }
 
-  async updateUser(req, res) {
+  async editUser(req, res) {
     try {
       let userToAdd = req.body;
       let userToReplace = req.params.userId;

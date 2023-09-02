@@ -110,7 +110,7 @@ class ItineraryController extends BaseController {
     } = req.body;
     // call chatgpt api with the above prompt. output to include activites.
     try {
-      const itinerary = await this.model.create(
+      const newItinerary = await this.model.create(
         {
           name: name,
           prompts: prompts,
@@ -125,9 +125,9 @@ class ItineraryController extends BaseController {
       );
 
       // Associate the user with the itinerary and set is_creator to true
-      await itinerary.addUser(userId, { through: { is_creator: true } });
+      await newItinerary.addUser(userId, { through: { is_creator: true } });
 
-      return res.json(itinerary);
+      return res.json(newItinerary);
     } catch (err) {
       return res.status(400).json({ error: true, msg: err.message });
     }
@@ -138,9 +138,6 @@ class ItineraryController extends BaseController {
     try {
       let { name, prompts, isPublic, maxPax, genderPreference } = req.body;
       const { userId, itineraryId } = req.params;
-      console.log(userId);
-      console.log(itineraryId);
-
       // Find the existing itinerary
       let itineraryToEdit = await this.model.findByPk(itineraryId);
 

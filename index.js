@@ -7,6 +7,10 @@ const UserController = require("./controllers/userController");
 require("dotenv").config();
 const UserRouter = require("./routers/userRouter");
 
+const ActivityController = require("./controllers/activityController");
+require("dotenv").config();
+const ActivityRouter = require("./routers/activityRouter");
+
 const db = require("./db/models/index");
 const { users, itineraries, activities, user_itineraries } = db;
 
@@ -26,15 +30,24 @@ const userController = new UserController(
 );
 const userRouter = new UserRouter(userController).routes();
 
+const activtyController = new ActivityController(
+  itineraries,
+  activities,
+  users,
+  user_itineraries
+);
+const activityRouter = new ActivityRouter(activtyController).routes();
+
 const PORT = process.env.PORT;
 const app = express();
 // Enable CORS access to this server
 app.use(cors());
-app.use(express.json()); // to parse incoming JSON data in the request body.
+app.use(express.json());
 
 // using the routers
 app.use("/itinerary", itineraryRouter);
 app.use("/user", userRouter);
+app.use("/activity", activityRouter);
 
 app.listen(PORT, () => {
   console.log(`Express app listening on port ${PORT}!`);
