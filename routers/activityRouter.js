@@ -11,19 +11,18 @@ class ActivityRouter {
       "/:activityId",
       this.controller.getOneActivity.bind(this.controller)
     );
-    router.put(
-      "/:activityId/:userId",
-      this.controller.editActivity.bind(this.controller)
-    );
     router.post(
       "/:itineraryId/:userId",
       this.controller.createActivity.bind(this.controller)
     );
-
-    // router.delete(
-    //   "/:activityId/:userId",
-    //   this.controller.deleteActivity.bind(this.controller)
-    // );
+    router.put(
+      "/:activityId/:userId",
+      this.controller.editActivity.bind(this.controller)
+    );
+    router.delete(
+      "/:activityId/:userId",
+      this.controller.deleteActivity.bind(this.controller)
+    );
     return router;
   }
 }

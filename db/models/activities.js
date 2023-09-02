@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       name: DataTypes.STRING,
       description: DataTypes.TEXT,
       type: DataTypes.STRING,
-      activityOrder: DataTypes.INTEGER,
+      activityOrder: DataTypes.FLOAT,
       timeOfDay: DataTypes.STRING,
       suggestedDuration: DataTypes.STRING,
       location: DataTypes.STRING,

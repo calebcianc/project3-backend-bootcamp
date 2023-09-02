@@ -26,7 +26,7 @@ class ItineraryRouter {
     router.post("/new", this.controller.createItinerary.bind(this.controller));
 
     router.put(
-      "/:userId/itineraryId",
+      "/:userId/:itineraryId",
       this.controller.editItinerary.bind(this.controller)
     );
 
