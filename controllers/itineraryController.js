@@ -1,3 +1,4 @@
+const fetchChatCompletion = require("../openai.js");
 const BaseController = require("./baseController");
 
 class ItineraryController extends BaseController {
@@ -109,14 +110,12 @@ class ItineraryController extends BaseController {
     } = req.body;
     // call chatgpt api with the above prompt. output to include activites.
 
+    fetchChatCompletion();
+
     try {
       const newItinerary = await this.model.create(
         {
           name: name,
-          startDate: startDate,
-          endDate: endDate,
-          country: country,
-          category: category,
           prompts: prompts,
           isPublic: isPublic,
           maxPax: maxPax,
