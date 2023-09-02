@@ -25,6 +25,9 @@ module.exports = {
       gender_preference: {
         type: Sequelize.STRING,
       },
+      photo_url: {
+        type: Sequelize.STRING,
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,

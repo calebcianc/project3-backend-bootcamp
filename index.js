@@ -4,11 +4,8 @@ require("dotenv").config();
 const ItineraryRouter = require("./routers/itineraryRouter");
 const ItineraryController = require("./controllers/itineraryController");
 const UserController = require("./controllers/userController");
-require("dotenv").config();
 const UserRouter = require("./routers/userRouter");
-
 const ActivityController = require("./controllers/activityController");
-require("dotenv").config();
 const ActivityRouter = require("./routers/activityRouter");
 
 const db = require("./db/models/index");

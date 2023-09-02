@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       isPublic: DataTypes.BOOLEAN,
       maxPax: DataTypes.INTEGER,
       genderPreference: DataTypes.STRING,
+      photoUrl: DataTypes.STRING,
     },
     {
       sequelize,
