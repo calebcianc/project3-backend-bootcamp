@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       latitude: DataTypes.FLOAT,
       longitude: DataTypes.FLOAT,
       description: DataTypes.TEXT,
-      activityOrder: DataTypes.INTEGER,
+      activityOrder: DataTypes.FLOAT,
       photoUrl: DataTypes.TEXT,
       type: DataTypes.STRING,
       itineraryId: {
