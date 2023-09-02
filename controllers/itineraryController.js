@@ -210,23 +210,9 @@ class ItineraryController extends BaseController {
       // Delete associated activities and users (with CASCADE). only owner can delete
       await this.model.destroy({ where: { id: itineraryId } });
 
-      //show remaining itineraries after deletion
-      let allItinerary = await this.model.findAll({
-        include: [
-          {
-            model: this.activitiesModel,
-          },
-          {
-            model: this.usersModel,
-            where: { id: userId },
-          },
-        ],
+      return res.json({
+        message: `${userItineraryRecord.itinerary.name} itinerary is Successfully deleted`,
       });
-
-      // return res.json({
-      //   message: `${userItineraryRecord.itinerary.name} itinerary is Successfully deleted`,
-      // });
-      return res.json({ allItinerary });
     } catch (err) {
       return res.status(400).json({ error: true, msg: err.message });
     }
