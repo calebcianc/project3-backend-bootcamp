@@ -7,6 +7,7 @@ const ExploreRouter = require("./routers/exploreRouter");
 const ExploreController = require("./controllers/exploreController");
 const db = require("./db/models/index");
 const { users, itineraries, activities, user_itineraries } = db;
+const fetchChatCompletion = require("./openai.js");
 
 // initializing Controllers -> note the lowercase for the first word
 const itineraryController = new ItineraryController(
@@ -36,3 +37,5 @@ app.use("/explore", exploreRouter);
 app.listen(PORT, () => {
   console.log(`Express app listening on port ${PORT}!`);
 });
+
+fetchChatCompletion();

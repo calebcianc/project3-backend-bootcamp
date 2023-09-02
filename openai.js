@@ -1,9 +1,9 @@
-import { config } from "dotenv";
-config();
+const dotenv = require("dotenv");
+dotenv.config();
 
 console.log(process.env.API_KEY);
 
-import OpenAI from "openai";
+const OpenAI = require("openai").default;
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -91,4 +91,4 @@ async function fetchChatCompletion() {
   }
 }
 
-fetchChatCompletion();
+module.exports = fetchChatCompletion;
