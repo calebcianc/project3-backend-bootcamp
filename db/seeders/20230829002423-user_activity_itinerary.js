@@ -372,17 +372,6 @@ module.exports = {
         created_at: new Date(),
         updated_at: new Date(),
       },
-      {
-        date: "5 November 2023",
-        name: "Visit Kinkaku-ji (Golden Pavilion)",
-        description:
-          "Kinkaku-ji, also known as the Golden Pavilion, is a Zen Buddhist temple located in Kyoto. The top two floors of the temple are covered in gold leaf, creating a stunning and iconic sight reflected in the surrounding pond. The temple and its beautiful gardens are a UNESCO World Heritage Site.",
-        time_of_day: "afternoon",
-        suggested_duration: "1 to 2 hours",
-        location: "Kinkaku",
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
     ]);
     await queryInterface.bulkInsert("user_itineraries", [
       {
