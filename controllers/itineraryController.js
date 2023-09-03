@@ -1,5 +1,6 @@
 const fetchChatCompletion = require("../openai.js");
 const BaseController = require("./baseController");
+const SearchPhotos = require("../unsplash.js");
 
 class ItineraryController extends BaseController {
   constructor(model, activitiesModel, usersModel, user_itinerariesModel) {
@@ -101,7 +102,7 @@ class ItineraryController extends BaseController {
   async createItinerary(req, res) {
     const {
       name,
-      prompts, // stores start date, end date, country, category
+      prompts, // stores startDate, endDate, country, category
       isPublic,
       maxPax,
       genderPreference,
@@ -121,31 +122,34 @@ class ItineraryController extends BaseController {
 
       try {
         // having the array of activities from chatGPT, we can create a new itinerary in the itineraries model in our db
-        const newItinerary = await this.model.create(
-          {
-            name: name,
-            prompts: prompts,
-            isPublic: isPublic,
-            maxPax: maxPax,
-            genderPreference: genderPreference,
-            userId: userId,
-            isCreator: true, //default for creation
-            activities: activities, // array of objects from ChatGPT
-          },
-          { include: [this.activitiesModel], transaction } //this tells Sequelize to also create Activity entries
-        );
+        const newItinerary = await this.model.create({
+          name: name,
+          prompts: prompts,
+          isPublic: isPublic,
+          maxPax: maxPax,
+          genderPreference: genderPreference,
+          userId: userId,
+          activities: activities, // array of objects from ChatGPT
+        });
 
-        // Associate the user with the itinerary and set is_creator to true
+        // Associate the user with the itinerary and set isCreator to true
         await newItinerary.addUser(userId, {
           through: { isCreator: true },
           transaction,
         });
 
-        if (!Array.isArray(activities)) {
-          console.error("Activities is not an array", activities);
-        }
-
         const jsArrayActivities = JSON.parse(activities);
+
+        // use unsplash to get photoUrl and insert into itinerary
+        const photoUrl = await SearchPhotos(jsArrayActivities[0].location);
+        console.log("photoUrl", photoUrl);
+        if (!photoUrl) {
+          return res
+            .status(400)
+            .json({ error: true, msg: "Could not fetch activities" });
+        }
+        await newItinerary.update({ photoUrl: photoUrl });
+
         const bulkActivities = jsArrayActivities.map((activity) => ({
           date: activity.date.split("T")[0],
           name: activity.name,
@@ -159,13 +163,25 @@ class ItineraryController extends BaseController {
           longitude: activity.longitude,
           itineraryId: newItinerary.id,
         }));
-
         await this.activitiesModel.bulkCreate(bulkActivities, {
           transaction,
         });
-
         await transaction.commit();
-        return res.json(newItinerary);
+
+        //show remaining itineraries after creation
+        let allItinerary = await this.model.findAll({
+          include: [
+            {
+              model: this.activitiesModel,
+            },
+            {
+              model: this.usersModel,
+              where: { id: userId },
+            },
+          ],
+        });
+        console.log("allItinerary", allItinerary);
+        return res.json(allItinerary);
       } catch (dbErr) {
         await transaction.rollback();
         return res.status(400).json({ error: true, msg: dbErr.message });
