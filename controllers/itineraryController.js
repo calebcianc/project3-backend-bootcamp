@@ -102,7 +102,7 @@ class ItineraryController extends BaseController {
   async createItinerary(req, res) {
     const {
       name,
-      prompts, // stores start date, end date, country, category
+      prompts, // stores startDate, endDate, country, category
       isPublic,
       maxPax,
       genderPreference,
@@ -140,11 +140,7 @@ class ItineraryController extends BaseController {
 
         const jsArrayActivities = JSON.parse(activities);
 
-        // use unsplash to get photoUrl
-        // insert into itinerary
-        // console.log("location", jsArrayActivities[0].location);
-
-        // call use unsplash to get photoUrl
+        // use unsplash to get photoUrl and insert into itinerary
         const photoUrl = await SearchPhotos(jsArrayActivities[0].location);
         console.log("photoUrl", photoUrl);
         if (!photoUrl) {
@@ -152,7 +148,6 @@ class ItineraryController extends BaseController {
             .status(400)
             .json({ error: true, msg: "Could not fetch activities" });
         }
-
         await newItinerary.update({ photoUrl: photoUrl });
 
         const bulkActivities = jsArrayActivities.map((activity) => ({
@@ -168,7 +163,6 @@ class ItineraryController extends BaseController {
           longitude: activity.longitude,
           itineraryId: newItinerary.id,
         }));
-
         await this.activitiesModel.bulkCreate(bulkActivities, {
           transaction,
         });
