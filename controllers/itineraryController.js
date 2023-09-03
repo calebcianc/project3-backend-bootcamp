@@ -155,7 +155,7 @@ class ItineraryController extends BaseController {
           name: activity.name,
           description: activity.description,
           type: activity.type,
-          activityOrder: parseInt(activity.activity_order),
+          activityOrder: activity.activity_order,
           timeOfDay: activity.time_of_day,
           suggestedDuration: activity.suggested_duration,
           location: activity.location,
