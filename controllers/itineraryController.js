@@ -137,7 +137,7 @@ class ItineraryController extends BaseController {
 
         // Associate the user with the itinerary and set is_creator to true
         await newItinerary.addUser(userId, {
-          through: { is_creator: true },
+          through: { isCreator: true },
           transaction,
         });
 

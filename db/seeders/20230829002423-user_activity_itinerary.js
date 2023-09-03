@@ -40,6 +40,12 @@ module.exports = {
     await queryInterface.bulkInsert("itineraries", [
       {
         name: "China tour",
+        prompts: JSON.stringify({
+          startDate: "2023-11-01T00:00:00.000Z",
+          endDate: "2023-11-03T00:00:00.000Z",
+          country: "China",
+          category: "Culture",
+        }),
         is_public: true,
         max_pax: 4,
         gender_preference: "Any",
@@ -50,6 +56,12 @@ module.exports = {
       },
       {
         name: "Better China tour",
+        prompts: JSON.stringify({
+          startDate: "2023-11-01T00:00:00.000Z",
+          endDate: "2023-11-05T00:00:00.000Z",
+          country: "China",
+          category: "Leisure",
+        }),
         is_public: false,
         max_pax: 1,
         photo_url:
@@ -58,7 +70,13 @@ module.exports = {
         updated_at: new Date(),
       },
       {
-        name: "Japan tour V3",
+        name: "Japan tour Best",
+        prompts: JSON.stringify({
+          startDate: "2023-11-01T00:00:00.000Z",
+          endDate: "2023-11-05T00:00:00.000Z",
+          country: "Japan",
+          category: "Culture",
+        }),
         is_public: true,
         max_pax: 10,
         gender_preference: "Any",
