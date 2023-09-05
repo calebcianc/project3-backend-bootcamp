@@ -41,8 +41,8 @@ module.exports = {
       {
         name: "China tour",
         prompts: JSON.stringify({
-          startDate: "2023-11-01T00:00:00.000Z",
-          endDate: "2023-11-03T00:00:00.000Z",
+          startDate: "2023-08-01T00:00:00.000Z",
+          endDate: "2023-08-03T00:00:00.000Z",
           country: "China",
           category: "Culture",
         }),
@@ -89,7 +89,7 @@ module.exports = {
     await queryInterface.bulkInsert("activities", [
       {
         name: "Visit Forbidden City",
-        date: "1 November 2023",
+        date: "1 August 2023",
         time_of_day: "afternoon",
         suggested_duration: "2 to 3 hours",
         location: "Forbidden City, Beijing",
@@ -107,7 +107,7 @@ module.exports = {
       },
       {
         name: "Great Wall of China Tour",
-        date: "2 November 2023",
+        date: "2 August 2023",
         time_of_day: "morning",
         suggested_duration: "4 to 5 hours",
         location: "Great Wall of China, Beijing",
@@ -123,7 +123,7 @@ module.exports = {
       },
       {
         name: "Hutong Rickshaw Tour",
-        date: "2 November 2023",
+        date: "2 August 2023",
         time_of_day: "afternoon",
         suggested_duration: "1 to 2 hours",
         location: "Hutong, Beijing",
@@ -139,7 +139,7 @@ module.exports = {
       },
       {
         name: "Terracotta Army Visit",
-        date: "3 November 2023",
+        date: "3 August 2023",
         time_of_day: "morning",
         suggested_duration: "3 to 4 hours",
         location: "Terracotta Army Museum, Xi'an",
@@ -155,7 +155,7 @@ module.exports = {
       },
       {
         name: "Muslim Quarter Food Tour",
-        date: "3 November 2023",
+        date: "3 August 2023",
         time_of_day: "afternoon",
         suggested_duration: "2 to 3 hours",
         location: "Muslim Quarter, Xi'an",
