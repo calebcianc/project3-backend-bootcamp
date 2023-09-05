@@ -1,6 +1,7 @@
 const fetchChatCompletion = require("../openai.js");
 const BaseController = require("./baseController");
 const SearchPhotos = require("../unsplash.js");
+const { Op } = require("sequelize");
 
 class ItineraryController extends BaseController {
   constructor(model, activitiesModel, usersModel, user_itinerariesModel) {
@@ -36,6 +37,52 @@ class ItineraryController extends BaseController {
       return res
         .status(500)
         .json({ error: true, msg: "Internal Server Error" });
+    }
+  }
+
+  // get all itineraries with activities that are public (for explore page) by user
+  async getAllItineraryActivitiesPublicUser(req, res) {
+    try {
+      // Get userId from the request query params
+      const { userId } = req.params;
+
+      const notInitineraryId = await this.model.findAll({
+        attributes: ["id"],
+        include: [
+          {
+            model: this.usersModel,
+            where: {
+              id: userId,
+            },
+            attributes: [],
+          },
+        ],
+      });
+
+      const ids = notInitineraryId.map((item) => item.id);
+      console.log("ids", ids);
+
+      const itinerary = await this.model.findAll({
+        where: { isPublic: true, id: { [Op.notIn]: ids } },
+        include: [
+          {
+            model: this.activitiesModel,
+          },
+          {
+            model: this.usersModel,
+            attributes: ["id", "firstName", "lastName"],
+          },
+        ],
+      });
+      if (!itinerary) {
+        return res
+          .status(404)
+          .json({ error: true, msg: "Itinerary not found" });
+      }
+      return res.json(itinerary);
+    } catch (error) {
+      console.error("Error fetching itineraries with activities:", error);
+      return res.status(500).json({ error: true, msg: error.message });
     }
   }
 
