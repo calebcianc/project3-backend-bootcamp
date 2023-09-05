@@ -14,6 +14,11 @@ class ItineraryRouter {
     );
 
     router.get(
+      "/explore/:userId",
+      this.controller.getAllItineraryActivitiesPublicUser.bind(this.controller)
+    );
+
+    router.get(
       "/:userId",
       this.controller.getAllItinerary.bind(this.controller)
     );

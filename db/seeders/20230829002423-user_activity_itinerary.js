@@ -430,13 +430,6 @@ module.exports = {
         created_at: new Date(),
         updated_at: new Date(),
       },
-      {
-        user_id: 2,
-        is_creator: false,
-        itinerary_id: 3,
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
     ]);
   },
 
