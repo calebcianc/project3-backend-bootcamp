@@ -38,17 +38,15 @@ Each activity-object will be presented in the following object format and keys e
 
 In generating the list of activities, note and ensure the following:
 - make sure your itinerary covers EVERY date from the start date to the end date inclusive.
+- the first activity of the first day (in the morning) should always be arrival at an airport
+- the last activity of the last day (in the evening) should always be departure from an airport
 - there will be at least 3 activities for every day of the itinerary (one for morning, one for afternoon, one for evening)
-- breakfast will be at 8am
-- lunch will be at 12pm
-- dinner will be at 6pm
-- each breakfast, lunch, and dinner, will be 1 hour long
 - a rough 30 minutes gap between each activity to account for user travel
 - the activities should be in an order that makes sense e.g., if activities A, B, and C are points on a map with B in the middle, then the recommended order should be A-B-C or C-B-A
 
 Thereafter, the user may send in one or more of the following: i) Add in a new activity, ii) Amend something about an existing activity. \n
 In responding to these requests, be sure to note the information of the activities before and after, and recommend an activity appropriate for the user.`;
-  const generateItineraryPrompt = `Generate a travel itinerary based on the following: Start date ${prompts.startDate}, End date ${prompts.endDate}, Country: ${prompts.country}, Category: ${prompts.category}. `;
+  const generateItineraryPrompt = `Generate a travel itinerary based on the following: ${prompts.name} with start date ${prompts.startDate}, end date ${prompts.endDate}, in ${prompts.country}, with a focus on ${prompts.category}. `;
   return [
     {
       role: "system",
