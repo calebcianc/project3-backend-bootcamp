@@ -188,14 +188,14 @@ class ItineraryController extends BaseController {
         const jsArrayActivities = JSON.parse(activities);
 
         // use unsplash to get photoUrl and insert into itinerary
-        const photoUrl = await SearchPhotos(jsArrayActivities[0].location);
-        console.log("photoUrl", photoUrl);
-        if (!photoUrl) {
-          return res
-            .status(400)
-            .json({ error: true, msg: "Could not fetch activities" });
-        }
-        await newItinerary.update({ photoUrl: photoUrl });
+        // const photoUrl = await SearchPhotos(jsArrayActivities[0].location);
+        // console.log("photoUrl", photoUrl);
+        // if (!photoUrl) {
+        //   return res
+        //     .status(400)
+        //     .json({ error: true, msg: "Could not fetch activities" });
+        // }
+        // await newItinerary.update({ photoUrl: photoUrl });
 
         const bulkActivities = jsArrayActivities.map((activity) => ({
           date: activity.date.split("T")[0],
