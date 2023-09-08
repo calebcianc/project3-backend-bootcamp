@@ -119,7 +119,7 @@ module.exports = {
         }),
         is_public: true,
         max_pax: 4,
-        gender_preference: "any",
+        gender_preference: "Female",
         photo_url:
           "https://images.unsplash.com/photo-1504973522169-4705c9741e0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2674&q=80",
         created_at: new Date(),
