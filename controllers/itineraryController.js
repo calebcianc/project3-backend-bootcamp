@@ -115,6 +115,26 @@ class ItineraryController extends BaseController {
     }
   }
 
+  // add user to itinerary
+  async addUserToItinerary(req, res) {
+    const { userId, itineraryId } = req.params;
+    try {
+      const user_itinerary = await this.user_itinerariesModel.create({
+        userId: userId,
+        itineraryId: itineraryId,
+        isCreator: false,
+      });
+      if (!user_itinerary) {
+        return res
+          .status(404)
+          .json({ error: true, msg: "Itinerary not found" });
+      }
+      return res.json(user_itinerary);
+    } catch (error) {
+      console.error("Error fetching itineraries with activities:", error);
+      return res.status(500).json({ error: true, msg: error.message });
+    }
+  }
   // get specific itinerary with activities by users
   async getOneItineraryActivityByUser(req, res) {
     const { itineraryId, userId } = req.params;
