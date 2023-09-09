@@ -47,7 +47,7 @@ module.exports = {
     ]);
     await queryInterface.bulkInsert("itineraries", [
       {
-        name: "China tour",
+        name: "China Cultural Tour",
         prompts: JSON.stringify({
           startDate: "2023-08-01T00:00:00.000Z",
           endDate: "2023-08-03T00:00:00.000Z",
@@ -63,7 +63,7 @@ module.exports = {
         updated_at: new Date(),
       },
       {
-        name: "Better China tour",
+        name: "China free and easy scenic tour",
         prompts: JSON.stringify({
           startDate: "2023-11-01T00:00:00.000Z",
           endDate: "2023-11-05T00:00:00.000Z",
@@ -78,12 +78,12 @@ module.exports = {
         updated_at: new Date(),
       },
       {
-        name: "Japan tour Best",
+        name: "Japan Unforgettable Experience",
         prompts: JSON.stringify({
           startDate: "2023-11-01T00:00:00.000Z",
           endDate: "2023-11-05T00:00:00.000Z",
           country: "Japan",
-          category: "Culture",
+          category: "Exploration",
         }),
         is_public: true,
         max_pax: 10,
@@ -94,12 +94,12 @@ module.exports = {
         updated_at: new Date(),
       },
       {
-        name: "Greecetour",
+        name: "Athens Escape",
         prompts: JSON.stringify({
           startDate: "2023-11-19T16:00:00.000Z",
           endDate: "2023-11-21T16:00:00.000Z",
           country: "Greece",
-          category: "Family",
+          category: "Relaxation",
         }),
         is_public: true,
         max_pax: 2,
