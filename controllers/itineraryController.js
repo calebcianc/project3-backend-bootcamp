@@ -22,7 +22,7 @@ class ItineraryController extends BaseController {
           },
           {
             model: this.usersModel,
-            attributes: ["id", "firstName", "lastName"],
+            // attributes: ["id", "firstName", "lastName", "gender"],
           },
         ],
       });
@@ -70,7 +70,7 @@ class ItineraryController extends BaseController {
           },
           {
             model: this.usersModel,
-            attributes: ["id", "firstName", "lastName"],
+            // attributes: ["id", "firstName", "lastName", "gender"],
           },
         ],
       });
