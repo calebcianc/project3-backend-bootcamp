@@ -136,22 +136,6 @@ class ItineraryController extends BaseController {
     }
   }
 
-  // remove user from itinerary
-  async deleteUserFromItinerary(req, res) {
-    try {
-      const { userId, itineraryId } = req.params;
-      await this.user_itinerariesModel.destroy({
-        where: { userId: userId, itineraryId: itineraryId },
-      });
-
-      return res.json({
-        message: `${itineraryId} itinerary is Successfully remove from ${userId}`,
-      });
-    } catch (err) {
-      return res.status(400).json({ error: true, msg: err.message });
-    }
-  }
-
   // get specific itinerary with activities by users
   async getOneItineraryActivityByUser(req, res) {
     const { itineraryId, userId } = req.params;
@@ -337,15 +321,20 @@ class ItineraryController extends BaseController {
 
       // Check if the user is the creator
       if (!userItineraryRecord.isCreator) {
-        throw new Error("Only the creator can delete this itinerary");
+        await this.user_itinerariesModel.destroy({
+          where: { userId: userId, itineraryId: itineraryId },
+        });
+
+        return res.json({
+          message: `${itineraryId} itinerary is Successfully remove from ${userId}.  `,
+        });
+      } else {
+        // Delete associated activities and users (with CASCADE). only owner can delete
+        await this.model.destroy({ where: { id: itineraryId } });
+        return res.json({
+          message: `${userItineraryRecord.itinerary.name} itinerary (${itineraryId}) is Successfully deleted.`,
+        });
       }
-
-      // Delete associated activities and users (with CASCADE). only owner can delete
-      await this.model.destroy({ where: { id: itineraryId } });
-
-      return res.json({
-        message: `${userItineraryRecord.itinerary.name} itinerary is Successfully deleted`,
-      });
     } catch (err) {
       return res.status(400).json({ error: true, msg: err.message });
     }
