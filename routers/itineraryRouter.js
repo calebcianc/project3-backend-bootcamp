@@ -27,6 +27,10 @@ class ItineraryRouter {
       "/:userId/:itineraryId",
       this.controller.addUserToItinerary.bind(this.controller)
     );
+    router.delete(
+      "/:userId/:itineraryId",
+      this.controller.deleteUserFromItinerary.bind(this.controller)
+    );
     router.get(
       "/:userId/:itineraryId",
       this.controller.getOneItineraryActivityByUser.bind(this.controller)
