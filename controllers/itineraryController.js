@@ -135,6 +135,23 @@ class ItineraryController extends BaseController {
       return res.status(500).json({ error: true, msg: error.message });
     }
   }
+
+  // remove user from itinerary
+  async deleteUserFromItinerary(req, res) {
+    try {
+      const { userId, itineraryId } = req.params;
+      await this.user_itinerariesModel.destroy({
+        where: { userId: userId, itineraryId: itineraryId },
+      });
+
+      return res.json({
+        message: `${itineraryId} itinerary is Successfully remove from ${userId}`,
+      });
+    } catch (err) {
+      return res.status(400).json({ error: true, msg: err.message });
+    }
+  }
+
   // get specific itinerary with activities by users
   async getOneItineraryActivityByUser(req, res) {
     const { itineraryId, userId } = req.params;
