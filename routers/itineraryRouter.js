@@ -4,6 +4,7 @@ const router = express.Router();
 class ItineraryRouter {
   constructor(controller) {
     this.controller = controller;
+    this.jwtCheck = jwtCheck;
   }
   routes() {
     router.get("/", this.controller.getAll.bind(this.controller));

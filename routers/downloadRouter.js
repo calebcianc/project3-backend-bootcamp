@@ -4,15 +4,18 @@ const router = express.Router();
 class DownloadRouter {
   constructor(controller) {
     this.controller = controller;
+    this.jwtCheck = jwtCheck;
   }
   routes() {
     router.get(
       "/excel/:itineraryId",
+      this.jwtCheck,
       this.controller.getActivitiesForExcelItinerary.bind(this.controller)
     );
 
     router.get(
       "/googleSheet/:itineraryId",
+      this.jwtCheck,
       this.controller.getActivitiesForGoogleSheetItinerary.bind(this.controller)
     );
 

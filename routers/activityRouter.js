@@ -4,6 +4,7 @@ const router = express.Router();
 class ActivityRouter {
   constructor(controller) {
     this.controller = controller;
+    this.jwtCheck = jwtCheck;
   }
   routes() {
     router.get("/", this.controller.getAllActivities.bind(this.controller));

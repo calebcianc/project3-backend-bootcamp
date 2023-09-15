@@ -3,6 +3,7 @@ const router = express.Router();
 class UserRouter {
   constructor(controller) {
     this.controller = controller;
+    this.jwtCheck = jwtCheck;
   }
   routes() {
     router.get("/", this.controller.getAllUser.bind(this.controller));
