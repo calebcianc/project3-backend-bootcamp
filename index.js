@@ -1,12 +1,15 @@
 const cors = require("cors");
 const express = require("express");
 require("dotenv").config();
+
 const ItineraryRouter = require("./routers/itineraryRouter");
 const ItineraryController = require("./controllers/itineraryController");
 const UserController = require("./controllers/userController");
 const UserRouter = require("./routers/userRouter");
 const ActivityController = require("./controllers/activityController");
 const ActivityRouter = require("./routers/activityRouter");
+const DownloadController = require("./controllers/downloadController");
+const DownloadRouter = require("./routers/downloadRouter");
 
 const db = require("./db/models/index");
 const { users, itineraries, activities, user_itineraries } = db;
@@ -35,6 +38,15 @@ const activtyController = new ActivityController(
 );
 const activityRouter = new ActivityRouter(activtyController).routes();
 
+const downloadController = new DownloadController(
+  itineraries,
+  activities,
+  users,
+  user_itineraries
+);
+
+const downloadRouter = new DownloadRouter(downloadController).routes();
+
 const PORT = process.env.PORT;
 const app = express();
 // Enable CORS access to this server
@@ -45,6 +57,7 @@ app.use(express.json());
 app.use("/itinerary", itineraryRouter);
 app.use("/user", userRouter);
 app.use("/activity", activityRouter);
+app.use("/download", downloadRouter);
 
 app.listen(PORT, () => {
   console.log(`Express app listening on port ${PORT}!`);
