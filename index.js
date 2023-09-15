@@ -1,6 +1,13 @@
 const cors = require("cors");
 const express = require("express");
 require("dotenv").config();
+const { auth } = require("express-oauth2-jwt-bearer");
+
+const jwtCheck = auth({
+  audience: "https://travelgpt/api",
+  issuerBaseURL: "https://dev-jg0bahnmapfmuy3a.us.auth0.com/",
+  tokenSigningAlg: "RS256",
+});
 
 const ItineraryRouter = require("./routers/itineraryRouter");
 const ItineraryController = require("./controllers/itineraryController");
@@ -20,7 +27,10 @@ const itineraryController = new ItineraryController(
   users,
   user_itineraries
 );
-const itineraryRouter = new ItineraryRouter(itineraryController).routes();
+const itineraryRouter = new ItineraryRouter(
+  itineraryController,
+  jwtCheck
+).routes();
 
 const userController = new UserController(
   itineraries,
@@ -28,7 +38,7 @@ const userController = new UserController(
   users,
   user_itineraries
 );
-const userRouter = new UserRouter(userController).routes();
+const userRouter = new UserRouter(userController, jwtCheck).routes();
 
 const activtyController = new ActivityController(
   itineraries,
@@ -36,7 +46,7 @@ const activtyController = new ActivityController(
   users,
   user_itineraries
 );
-const activityRouter = new ActivityRouter(activtyController).routes();
+const activityRouter = new ActivityRouter(activtyController, jwtCheck).routes();
 
 const downloadController = new DownloadController(
   itineraries,
@@ -45,7 +55,10 @@ const downloadController = new DownloadController(
   user_itineraries
 );
 
-const downloadRouter = new DownloadRouter(downloadController).routes();
+const downloadRouter = new DownloadRouter(
+  downloadController,
+  jwtCheck
+).routes();
 
 const PORT = process.env.PORT;
 const app = express();
