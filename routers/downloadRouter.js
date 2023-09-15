@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 class DownloadRouter {
-  constructor(controller) {
+  constructor(controller, jwtCheck) {
     this.controller = controller;
     this.jwtCheck = jwtCheck;
   }
