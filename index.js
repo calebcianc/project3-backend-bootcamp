@@ -1,7 +1,6 @@
 const cors = require("cors");
 const express = require("express");
 require("dotenv").config();
-const XLSX = require("xlsx");
 
 const ItineraryRouter = require("./routers/itineraryRouter");
 const ItineraryController = require("./controllers/itineraryController");
