@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 
 class ItineraryRouter {
-  constructor(controller) {
+  constructor(controller, jwtCheck) {
     this.controller = controller;
+    this.jwtCheck = jwtCheck;
   }
   routes() {
     router.get("/", this.controller.getAll.bind(this.controller));

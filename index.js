@@ -24,12 +24,23 @@ if (process.env.DATABASE_URL) {
 }
 const cors = require("cors");
 const express = require("express");
+
+
+const { auth } = require("express-oauth2-jwt-bearer");
+const jwtCheck = auth({
+  audience: "https://travelgpt/api",
+  issuerBaseURL: "https://dev-7gx7dya54svlwfwg.us.auth0.com/",
+  tokenSigningAlg: "RS256",
+});
+
 const ItineraryRouter = require("./routers/itineraryRouter");
 const ItineraryController = require("./controllers/itineraryController");
 const UserController = require("./controllers/userController");
 const UserRouter = require("./routers/userRouter");
 const ActivityController = require("./controllers/activityController");
 const ActivityRouter = require("./routers/activityRouter");
+const DownloadController = require("./controllers/downloadController");
+const DownloadRouter = require("./routers/downloadRouter");
 
 const db = require("./db/models/index");
 const { users, itineraries, activities, user_itineraries } = db;
@@ -40,7 +51,10 @@ const itineraryController = new ItineraryController(
   users,
   user_itineraries
 );
-const itineraryRouter = new ItineraryRouter(itineraryController).routes();
+const itineraryRouter = new ItineraryRouter(
+  itineraryController,
+  jwtCheck
+).routes();
 
 const userController = new UserController(
   itineraries,
@@ -48,7 +62,7 @@ const userController = new UserController(
   users,
   user_itineraries
 );
-const userRouter = new UserRouter(userController).routes();
+const userRouter = new UserRouter(userController, jwtCheck).routes();
 
 const activtyController = new ActivityController(
   itineraries,
@@ -56,7 +70,19 @@ const activtyController = new ActivityController(
   users,
   user_itineraries
 );
-const activityRouter = new ActivityRouter(activtyController).routes();
+const activityRouter = new ActivityRouter(activtyController, jwtCheck).routes();
+
+const downloadController = new DownloadController(
+  itineraries,
+  activities,
+  users,
+  user_itineraries
+);
+
+const downloadRouter = new DownloadRouter(
+  downloadController,
+  jwtCheck
+).routes();
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -68,6 +94,7 @@ app.use(express.json());
 app.use("/itinerary", itineraryRouter);
 app.use("/user", userRouter);
 app.use("/activity", activityRouter);
+app.use("/download", downloadRouter);
 
 app.listen(PORT, () => {
   console.log(`Express app listening on port ${PORT}!`);
