@@ -5,7 +5,7 @@ const { auth } = require("express-oauth2-jwt-bearer");
 
 const jwtCheck = auth({
   audience: "https://travelgpt/api",
-  issuerBaseURL: "https://dev-jg0bahnmapfmuy3a.us.auth0.com/",
+  issuerBaseURL: "https://dev-7gx7dya54svlwfwg.us.auth0.com/",
   tokenSigningAlg: "RS256",
 });
 
