@@ -1,8 +1,32 @@
+const env = process.env.NODE_ENV || "production";
+const config = require(__dirname + "/../../config/database.js")[env];
+
+require("dotenv").config();
+if (process.env.DATABASE_URL) {
+  sequelize = new Sequelize(
+    process.env.DATABASE,
+    process.env.USERNAME,
+    process.env.PASSWORD,
+    {
+      host: process.env.HOST,
+      dialect: process.env.DIALECT,
+    }
+  );
+} else if (config.use_env_variable) {
+  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+} else {
+  sequelize = new Sequelize(
+    config.database,
+    config.username,
+    config.password,
+    config
+  );
+}
 const cors = require("cors");
 const express = require("express");
-require("dotenv").config();
-const { auth } = require("express-oauth2-jwt-bearer");
 
+
+const { auth } = require("express-oauth2-jwt-bearer");
 const jwtCheck = auth({
   audience: "https://travelgpt/api",
   issuerBaseURL: "https://dev-7gx7dya54svlwfwg.us.auth0.com/",
@@ -60,7 +84,7 @@ const downloadRouter = new DownloadRouter(
   jwtCheck
 ).routes();
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 const app = express();
 // Enable CORS access to this server
 app.use(cors());
