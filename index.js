@@ -83,6 +83,7 @@ const downloadRouter = new DownloadRouter(
 ).routes();
 
 const PORT = process.env.PORT || 3000;
+const HOST = "0.0.0.0"; // Listen on all network interfaces
 const app = express();
 // Enable CORS access to this server
 app.use(cors());
@@ -94,6 +95,6 @@ app.use("/user", userRouter);
 app.use("/activity", activityRouter);
 app.use("/download", downloadRouter);
 
-app.listen(PORT, () => {
+app.listen(PORT, HOST, () => {
   console.log(`Express app listening on port ${PORT}!`);
 });

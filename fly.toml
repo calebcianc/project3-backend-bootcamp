@@ -1,3 +1,5 @@
+app = "travel-gpt-sep2023"
+
  [build]
  
  [deploy]
