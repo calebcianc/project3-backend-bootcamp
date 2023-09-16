@@ -1,5 +1,8 @@
 const env = process.env.NODE_ENV || "production";
-const config = require(__dirname + "/../../config/database.js")[env];
+const config = require(__dirname + "/config/database.js")[env];
+const cors = require("cors");
+const express = require("express");
+const Sequelize = require("sequelize");
 
 require("dotenv").config();
 if (process.env.DATABASE_URL) {
@@ -15,16 +18,11 @@ if (process.env.DATABASE_URL) {
 } else if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
-  sequelize = new Sequelize(
-    config.database,
-    config.username,
-    config.password,
-    config
-  );
+  sequelize = new Sequelize(config.database, config.username, config.password, {
+    ...config,
+    dialect: config.dialect || "postgres", // <-- Explicitly provide dialect
+  });
 }
-const cors = require("cors");
-const express = require("express");
-
 
 const { auth } = require("express-oauth2-jwt-bearer");
 const jwtCheck = auth({
