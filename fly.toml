@@ -1,4 +1,4 @@
-app = "travel-gpt-sep2023"
+  app = "travel-gpt-sep2023"
 
  [build]
  
@@ -8,11 +8,12 @@ app = "travel-gpt-sep2023"
  [env]
   PORT = "3000"
   USERNAME = "postgres"
-  PASSWORD = "SpYu2JKcWtDn21Z"
-  DATABASE = "misty-sun-2237"
-  HOST = "misty-sun-2237.internal"
+  PASSWORD = "ujhcgH0Dyw8Iy7A"
+  DATABASE = "silent-waterfall-9336"
+  HOST = "silent-waterfall-9336.internal"
   DIALECT = "postgres"
   NODE_ENV = "production"
+  UNSPLASH_ACCESS_KEY = esq3JS4p7toUiWO1YA2HBCbOEcGgkt0Ou55L9sZish8
   
 [http_service]
   internal_port = 3000
