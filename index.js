@@ -1,6 +1,29 @@
+const env = process.env.NODE_ENV || "production";
+const config = require(__dirname + "/../../config/database.js")[env];
+
+require("dotenv").config();
+if (process.env.DATABASE_URL) {
+  sequelize = new Sequelize(
+    process.env.DATABASE,
+    process.env.USERNAME,
+    process.env.PASSWORD,
+    {
+      host: process.env.HOST,
+      dialect: process.env.DIALECT,
+    }
+  );
+} else if (config.use_env_variable) {
+  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+} else {
+  sequelize = new Sequelize(
+    config.database,
+    config.username,
+    config.password,
+    config
+  );
+}
 const cors = require("cors");
 const express = require("express");
-require("dotenv").config();
 const ItineraryRouter = require("./routers/itineraryRouter");
 const ItineraryController = require("./controllers/itineraryController");
 const UserController = require("./controllers/userController");
@@ -35,7 +58,7 @@ const activtyController = new ActivityController(
 );
 const activityRouter = new ActivityRouter(activtyController).routes();
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 const app = express();
 // Enable CORS access to this server
 app.use(cors());
