@@ -1,3 +1,5 @@
+app = "travel-gpt-sep2023"
+
  [build]
  
  [deploy]
@@ -11,6 +13,8 @@
   HOST = "travel-gpt-sep2023-db.internal"
   DIALECT = "postgres"
   NODE_ENV = "production"
+  OPENAI_API_KEY = "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"
+  UNSPLASH_ACCESS_KEY = "2B31FLNGGRSwRaNHHozxJs8FNVYcK4qqdT-i_NbeCWU"
   
 [http_service]
   internal_port = 3000
