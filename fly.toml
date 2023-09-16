@@ -8,9 +8,9 @@ app = "travel-gpt-sep2023"
  [env]
   PORT = "3000"
   USERNAME = "postgres"
-  PASSWORD = "FBh5hrcqDBGCTRE"
-  DATABASE = "travel-gpt-sep2023-db"
-  HOST = "travel-gpt-sep2023-db.internal"
+  PASSWORD = "SpYu2JKcWtDn21Z"
+  DATABASE = "misty-sun-2237"
+  HOST = "misty-sun-2237.internal"
   DIALECT = "postgres"
   NODE_ENV = "production"
   

@@ -21,6 +21,7 @@ async function SearchPhotos(query) {
     ) {
       // console.log("alt_description", res.response.results[0].alt_description);
       // console.log("url", res.response.results[0].urls.full);
+      console.log(res.response.results[0].urls.full);
       return res.response.results[0].urls.full;
     } else {
       console.log(`No results found for query: ${query}`);
@@ -30,6 +31,6 @@ async function SearchPhotos(query) {
   }
 }
 
-// SearchPhotos({ query: "Opera House, Sydney" });
+// SearchPhotos("Hutongs, Beijing");
 
 module.exports = SearchPhotos;
