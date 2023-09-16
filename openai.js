@@ -37,6 +37,7 @@ Each activity-object will be presented in the following object format and keys e
 }
 
 In generating the list of activities, note and ensure the following:
+- pay attention to the text in the itinerary name as the name contains specific requests such as the city that the user wants to visit; in which case, generate activities largely in and around the specified city as opposed to another city in the country
 - make sure your itinerary covers EVERY date from the start date to the end date inclusive.
 - the first activity of the first day (in the morning) should always be arrival at an airport
 - the last activity of the last day (in the evening) should always be departure from an airport
@@ -46,7 +47,7 @@ In generating the list of activities, note and ensure the following:
 
 Thereafter, the user may send in one or more of the following: i) Add in a new activity, ii) Amend something about an existing activity. \n
 In responding to these requests, be sure to note the information of the activities before and after, and recommend an activity appropriate for the user.`;
-  const generateItineraryPrompt = `Generate a travel itinerary based on the following: ${prompts.name} with start date ${prompts.startDate}, end date ${prompts.endDate}, in ${prompts.country}, with a focus on ${prompts.category}. `;
+  const generateItineraryPrompt = `Generate a travel itinerary based on itinerary name and description: ${prompts.name} with start date ${prompts.startDate}, end date ${prompts.endDate}, in ${prompts.country}, with a focus on ${prompts.category}. `;
   return [
     {
       role: "system",
