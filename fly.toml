@@ -13,8 +13,7 @@
   HOST = "silent-waterfall-9336.internal"
   DIALECT = "postgres"
   NODE_ENV = "production"
-  UNSPLASH_ACCESS_KEY = esq3JS4p7toUiWO1YA2HBCbOEcGgkt0Ou55L9sZish8
-  
+    
 [http_service]
   internal_port = 3000
   force_https = true
