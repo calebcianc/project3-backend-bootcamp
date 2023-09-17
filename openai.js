@@ -60,13 +60,6 @@ In responding to these requests, be sure to note the information of the activiti
   ];
 };
 
-// const prompts = {
-//   startDate: "1 November 2023",
-//   endDate: "2 November 2023",
-//   country: "China",
-//   category: "",
-// };
-
 async function fetchChatCompletion({ prompts }) {
   console.log("fetchChatCompletion function is running");
   console.log("Prompts: ", JSON.stringify(prompts));
@@ -86,8 +79,6 @@ async function fetchChatCompletion({ prompts }) {
 
     clearInterval(timerId); // Stop the timer
 
-    // console.log("role: ", chatCompletion.choices[0].message.role);
-    // console.log("content: ", chatCompletion.choices[0].message.content);
     const storeGPTResponse = chatCompletion.choices[0].message.content;
     console.log("storeGPTResponse: ", storeGPTResponse);
     return storeGPTResponse;
