@@ -1,6 +1,7 @@
 const fetchChatCompletion = require("../openai.js");
+const InitializeUnsplash = require("../unsplash.js");
+// const SearchPhotos = require("../unsplash.js");
 const BaseController = require("./baseController");
-const SearchPhotos = require("../unsplash.js");
 const { Op } = require("sequelize");
 
 class ItineraryController extends BaseController {
@@ -209,6 +210,7 @@ class ItineraryController extends BaseController {
         const jsArrayActivities = JSON.parse(activities);
 
         // use unsplash to get photoUrl and insert into itinerary
+        const SearchPhotos = await InitializeUnsplash();
         const photoUrl = await SearchPhotos(jsArrayActivities[1].location);
         console.log("photoUrl", photoUrl);
         if (!photoUrl) {
@@ -251,6 +253,7 @@ class ItineraryController extends BaseController {
         console.log("allItinerary", allItinerary);
         return res.json(allItinerary);
       } catch (dbErr) {
+        console.error("Database Error:", dbErr);
         await transaction.rollback();
         return res.status(400).json({ error: true, msg: dbErr.message });
       }

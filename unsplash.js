@@ -1,5 +1,7 @@
-import("node-fetch").then((fetch) => {
-  global.fetch = fetch;
+async function InitializeUnsplash() {
+  const fetchModule = await import("node-fetch");
+  global.fetch = fetchModule.default || fetchModule;
+
   const { createApi } = require("unsplash-js");
   const dotenv = require("dotenv");
   dotenv.config();
@@ -33,7 +35,8 @@ import("node-fetch").then((fetch) => {
     }
   }
 
-  // SearchPhotos("Hutongs, Beijing");
+  return SearchPhotos;
+}
+// SearchPhotos("Hutongs, Beijing");
 
-  module.exports = SearchPhotos;
-});
+module.exports = InitializeUnsplash;
