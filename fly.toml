@@ -8,9 +8,9 @@
  [env]
   PORT = "3000"
   USERNAME = "postgres"
-  PASSWORD = "ujhcgH0Dyw8Iy7A"
-  DATABASE = "silent-waterfall-9336"
-  HOST = "silent-waterfall-9336.internal"
+  PASSWORD = "f7eYPQICoTGroXD"
+  DATABASE = "lingering-lake-854"
+  HOST = "lingering-lake-854.internal"
   DIALECT = "postgres"
   NODE_ENV = "production"
     

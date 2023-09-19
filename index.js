@@ -77,10 +77,7 @@ const downloadController = new DownloadController(
   user_itineraries
 );
 
-const downloadRouter = new DownloadRouter(
-  downloadController,
-  jwtCheck
-).routes();
+const downloadRouter = new DownloadRouter(downloadController).routes();
 
 const PORT = process.env.PORT || 3000;
 const HOST = "0.0.0.0"; // Listen on all network interfaces
