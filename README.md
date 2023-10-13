@@ -1,6 +1,7 @@
 # TRAVELGPT
 
-A backend application for TravelGPT to create, join and manage travel itineraries with the aid of openAI
+A backend application for TravelGPT to create, join and manage travel itineraries with the aid of openAI.
+
 _Project 3 for Rocket Academy Bootcamp_
 
 ## Features
