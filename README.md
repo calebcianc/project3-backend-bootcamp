@@ -9,9 +9,7 @@ _Project 3 for Rocket Academy Bootcamp_
 - Add new users or check for existing users in the database
 - Add, edit and delete itinerary/ activities
 - Join/ Leave itinerary that are tagged as public
-- Separate the itinerary available to user via public
-- itineraries, upcoming user itineraries and historical user itineraries
-- view the tracjectory taken by the itinerary on the map which shows all the location of interest covered by the itinerary
+- Separate the itinerary available to user via public itineraries, upcoming user itineraries and historical user itineraries
 
 ## Tech Used
 
